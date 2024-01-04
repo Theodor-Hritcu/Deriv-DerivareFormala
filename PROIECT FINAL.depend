@@ -1,0 +1,13 @@
+# depslib dependency file v1.0
+1704407606 source:c:\users\theo9\desktop\seminar an 1 sem 1\proiect ip\proiect final\main.cpp
+	<iostream>
+	<stack>
+	<cstring>
+	<string.h>
+	<graphics.h>
+	<winbgim.h>
+	<stdio.h>
+	<stdlib.h>
+	<vector>
+	<cmath>
+
