@@ -28,6 +28,7 @@ string notatia_Postfixata;
 string notatia_inordine;
 string notatia_inordine_2;
 
+int limba=1;
 int latime_ecran=getmaxwidth();
 int inaltime_ecran=getmaxheight();
 
@@ -294,7 +295,7 @@ arbore* simplifica(arbore *derivata)
             return derivata->stanga;
         else if(((derivata->stanga->data[0]<='9' and derivata->stanga->data[0]>='0') or (derivata->stanga->data[0]=='-' and derivata ->stanga->data[1]<='9' and derivata->stanga->data[1]>='0') or derivata->stanga->data=="e") and ((derivata->dreapta->data[0]<='9' and derivata->dreapta->data[0]>='0') or (derivata->dreapta->data[0]=='-' and derivata ->dreapta->data[1]<='9' and derivata->dreapta->data[1]>='0') or derivata->dreapta->data=="e" ))
         {
-            float s,d,suma;
+            double s,d,suma;
             if(derivata->stanga->data=="e")
                 s=2.718281;
             else
@@ -325,7 +326,7 @@ arbore* simplifica(arbore *derivata)
             return derivata->stanga;
         else if(((derivata->stanga->data[0]<='9' and derivata->stanga->data[0]>='0') or (derivata->stanga->data[0]=='-' and derivata ->stanga->data[1]<='9' and derivata->stanga->data[1]>='0') or derivata->stanga->data=="e") and ((derivata->dreapta->data[0]<='9' and derivata->dreapta->data[0]>='0') or (derivata->dreapta->data[0]=='-' and derivata ->dreapta->data[1]<='9' and derivata->dreapta->data[1]>='0') or derivata->dreapta->data=="e" ))
         {
-            float s,d,inm;
+            double s,d,inm;
             if(derivata->stanga->data=="e")
                 s=2.718281;
             else
@@ -350,7 +351,7 @@ arbore* simplifica(arbore *derivata)
                 if(((derivata->stanga->dreapta->data[0]<='9' and derivata->stanga->dreapta->data[0]>='0') or (derivata->stanga->dreapta->data[0]=='-' and derivata ->stanga->dreapta->data[1]<='9' and derivata->stanga->dreapta->data[1]>='0') or derivata->stanga->dreapta->data=="e") and ((derivata->dreapta->dreapta->data[0]<='9' and derivata->dreapta->dreapta->data[0]>='0') or (derivata->dreapta->dreapta->data[0]=='-' and derivata ->dreapta->dreapta->data[1]<='9' and derivata->dreapta->dreapta->data[1]>='0') or derivata->dreapta->dreapta->data=="e" ))
                 {
                     arbore *f=derivata->stanga->stanga;
-                    float p1,p2;
+                    double p1,p2;
                     if(derivata->stanga->dreapta->data=="e")
                         p1=2.718281;
                     else
@@ -359,7 +360,7 @@ arbore* simplifica(arbore *derivata)
                         p2=2.718281;
                     else
                         p2=stod(derivata->dreapta->dreapta->data);
-                    float putere=p1+p2;
+                    double putere=p1+p2;
                     string str=to_string(putere);
                     if(putere-int(putere)==0)
                     {
@@ -389,7 +390,7 @@ arbore* simplifica(arbore *derivata)
         {
             if(egalitate(derivata->stanga->stanga,derivata->dreapta)==true)
             {
-                float i;
+                double i;
                 if(derivata->stanga->dreapta->data=="e")
                     i=2.718281;
                 else
@@ -417,6 +418,37 @@ arbore* simplifica(arbore *derivata)
             simplifica(derivata);
             return derivata;
         }
+        else if(derivata->dreapta->data=="/" and (((derivata->dreapta->stanga->data[0]<='9' and derivata->dreapta->stanga->data[0]>='0') or
+                (derivata->dreapta->stanga->data[0]=='-' and derivata->dreapta->stanga->data[1]<='9' and derivata->dreapta->stanga->data[1]>='0') or
+                derivata->dreapta->stanga->data=="e") and  ((derivata->stanga->data[0]<='9' and derivata->stanga->data[0]>='0') or
+                        (derivata->stanga->data[0]=='-' and derivata->stanga->data[1]<='9' and derivata->stanga->data[1]>='0') or
+                        derivata->stanga->data=="e") ) )
+        {
+            string nr1,nr2;
+            double n1,n2,prod;
+            nr1=derivata->stanga->data;
+            nr2=derivata->dreapta->stanga->data;
+            if(nr1=="e")
+                n1=2.718281;
+            else
+                n1=stod(nr1);
+            if(nr2=="e")
+                n2=2.718281;
+            else
+                n2=stod(nr2);
+            prod=n1*n2;
+            string str=to_string(prod);
+            if(prod-int(prod)==0)
+            {
+                int n=int(prod);
+                str=to_string(n);
+            }
+            arbore *dr=derivata->dreapta->dreapta;
+            derivata=new arbore("/");
+            derivata->stanga=new arbore(str);
+            derivata->dreapta= dr;
+            return derivata;
+        }
     }
     else if(derivata->data=="-")
     {
@@ -429,7 +461,7 @@ arbore* simplifica(arbore *derivata)
         }
         else if(((derivata->stanga->data[0]<='9' and derivata->stanga->data[0]>='0') or (derivata->stanga->data[0]=='-' and derivata ->stanga->data[1]<='9' and derivata->stanga->data[1]>='0') or derivata->stanga->data=="e") and ((derivata->dreapta->data[0]<='9' and derivata->dreapta->data[0]>='0') or (derivata->dreapta->data[0]=='-' and derivata ->dreapta->data[1]<='9' and derivata->dreapta->data[1]>='0') or derivata->dreapta->data=="e" ))
         {
-            float s,d,dif;
+            double s,d,dif;
             if(derivata->stanga->data=="e")
                 s=2.718281;
             else
@@ -460,7 +492,7 @@ arbore* simplifica(arbore *derivata)
             return new arbore("1");
         else if(((derivata->stanga->data[0]<='9' and derivata->stanga->data[0]>='0') or (derivata->stanga->data[0]=='-' and derivata ->stanga->data[1]<='9' and derivata->stanga->data[1]>='0') or derivata->stanga->data=="e") and ((derivata->dreapta->data[0]<='9' and derivata->dreapta->data[0]>='0') or (derivata->dreapta->data[0]=='-' and derivata ->dreapta->data[1]<='9' and derivata->dreapta->data[1]>='0') or derivata->dreapta->data=="e" ))
         {
-            float s,d,putere;
+            double s,d,putere;
             if(derivata->stanga->data=="e")
                 s=2.718281;
             else
@@ -495,6 +527,8 @@ arbore* simplifica(arbore *derivata)
     {
         if(derivata->stanga->data=="0")
             return new arbore("0");
+        else if(derivata->dreapta->data=="1")
+            return derivata->stanga;
         else if(derivata->dreapta->data=="0")
         {
             derivata=new arbore("EROARE NU POTI IMPARTI LA 0!");
@@ -503,7 +537,7 @@ arbore* simplifica(arbore *derivata)
             return new arbore("1");
         else if(((derivata->stanga->data[0]<='9' and derivata->stanga->data[0]>='0') or (derivata->stanga->data[0]=='-' and derivata ->stanga->data[1]<='9' and derivata->stanga->data[1]>='0') or derivata->stanga->data=="e") and ((derivata->dreapta->data[0]<='9' and derivata->dreapta->data[0]>='0') or (derivata->dreapta->data[0]=='-' and derivata ->dreapta->data[1]<='9' and derivata->dreapta->data[1]>='0') or derivata->dreapta->data=="e" ))
         {
-            float s,d,div;
+            double s,d,div;
             if(derivata->stanga->data=="e")
                 s=2.718281;
             else
@@ -548,6 +582,11 @@ arbore* simplifica(arbore *derivata)
     {
         if(derivata->dreapta->data=="0")
             return new arbore("1");
+    }
+    else if(derivata->data=="tg")
+    {
+        if(derivata->dreapta->data=="0")
+            return new arbore("0");
     }
     return derivata;
 }
@@ -637,7 +676,7 @@ arbore* derivare(arbore *expresie)
             st->stanga=expresie->dreapta;
             arbore* stdr=new arbore("^");
             stdr->stanga=expresie->stanga;
-            float i;
+            double i;
             string str;
             if(expresie->dreapta->data=="e")
                 i=2.718281;
@@ -763,18 +802,6 @@ string inordine(arbore* expresie)
     return rezultat;
 }
 
-void srd(arbore* r)
-{
-    if (r != NULL)
-    {
-        cout<<"(";
-        srd(r->stanga);
-        cout << r->data;
-        srd(r->dreapta);
-        cout<<")";
-    }
-}
-
 int inaltime_arbore(arbore* arb)
 {
     if(arb == NULL)
@@ -819,14 +846,14 @@ void deseneaza_arbore(arbore* arb, int nivel, int stanga, int latime, int inalti
         {
             int xcs=stanga+latime*latime_arbore(arb->stanga->stanga)+latime/2;
             setlinestyle(0,0,3);
-            line(xc, yc+textwidth(data_nod)+15, xcs, yc+inaltime-textheight(data_nod)-7);
+            line(xc, yc+28, xcs, yc+inaltime-28);
         }
 
         if (arb->dreapta != NULL)
         {
             int xcd=stanga+latime*(latime_partiala+1)+latime*latime_arbore(arb->dreapta->stanga)+latime/2;
             setlinestyle(0,0,3);
-            line(xc, yc+textwidth(data_nod)+15, xcd, yc+inaltime-textheight(data_nod)-7);
+            line(xc, yc+28, xcd, yc+inaltime-28);
         }
 
         deseneaza_arbore(arb->stanga, nivel+1, stanga, latime, inaltime);
@@ -851,7 +878,7 @@ void denumire(int marime, char* s)
     outtextxy(x, y, s);
 }
 
-int navigare()
+int navigare_romana()
 {
     int lat=50,inalt=30;
     int x_stanga_sus=latime_ecran*3/4;
@@ -889,6 +916,10 @@ int navigare()
     settextstyle(BOLD_FONT, 0, LIGHTCYAN);
     outtextxy(x_stanga_sus+135, y_stanga_sus+14*inalt, "Iesire");
 
+    rectangle(x_stanga_sus, y_dreapta_jos+14*inalt, x_dreapta_jos+lat, y_dreapta_jos+16*inalt);
+    settextstyle(BOLD_FONT, 0, LIGHTCYAN);
+    outtextxy(x_stanga_sus+75, y_stanga_sus+16*inalt, "Language: English");
+
     int x,y;
 
     while (ismouseclick(WM_LBUTTONDOWN) == 0)
@@ -911,195 +942,478 @@ int navigare()
         return 6;
     else if (x > x_stanga_sus && x < x_dreapta_jos+lat && y > y_dreapta_jos+12*inalt && y < y_dreapta_jos+14*inalt)
         return 0;
+    else if(x > x_stanga_sus && x < x_dreapta_jos+lat && y > y_dreapta_jos+14*inalt && y < y_dreapta_jos+16*inalt)
+    {
+        limba++;
+        return 7;
+    }
+}
+
+int navigare_engleza()
+{
+    int lat=50,inalt=30;
+    int x_stanga_sus=latime_ecran*3/4;
+    int y_stanga_sus=inaltime_ecran/5;
+    int x_dreapta_jos=latime_ecran*15/16;
+    int y_dreapta_jos=inaltime_ecran/4;
+    setlinestyle(0, 0, 5);
+
+    rectangle(x_stanga_sus, y_stanga_sus, x_dreapta_jos+lat, y_dreapta_jos+inalt);
+    settextstyle(BOLD_FONT, 0, LIGHTCYAN);
+    outtextxy(x_stanga_sus+110, y_stanga_sus+25, "Informations");
+
+    rectangle(x_stanga_sus, y_dreapta_jos+inalt, x_dreapta_jos+lat, y_dreapta_jos+4*inalt);
+    settextstyle(BOLD_FONT, 0, LIGHTCYAN);
+    outtextxy(x_stanga_sus+100, y_stanga_sus+3*inalt, "Press here to");
+    outtextxy(x_stanga_sus+50, y_stanga_sus+4*inalt, "introduce the formula");
+
+    rectangle(x_stanga_sus, y_dreapta_jos+4*inalt, x_dreapta_jos+lat, y_dreapta_jos+6*inalt);
+    settextstyle(BOLD_FONT, 0, LIGHTCYAN);
+    outtextxy(x_stanga_sus+70, y_stanga_sus+6*inalt, "Postfixed notation");
+
+    rectangle(x_stanga_sus, y_dreapta_jos+6*inalt, x_dreapta_jos+lat, y_dreapta_jos+8*inalt);
+    settextstyle(BOLD_FONT, 0, LIGHTCYAN);
+    outtextxy(x_stanga_sus+90, y_stanga_sus+8*inalt, "Expression tree");
+
+    rectangle(x_stanga_sus, y_dreapta_jos+8*inalt, x_dreapta_jos+lat, y_dreapta_jos+10*inalt);
+    settextstyle(BOLD_FONT, 0, LIGHTCYAN);
+    outtextxy(x_stanga_sus+110, y_stanga_sus+10*inalt, "Derivative");
+
+    rectangle(x_stanga_sus, y_dreapta_jos+10*inalt, x_dreapta_jos+lat, y_dreapta_jos+12*inalt);
+    settextstyle(BOLD_FONT, 0, LIGHTCYAN);
+    outtextxy(x_stanga_sus+55, y_stanga_sus+12*inalt, "2nd order derivative");
+
+    rectangle(x_stanga_sus, y_dreapta_jos+12*inalt, x_dreapta_jos+lat, y_dreapta_jos+14*inalt);
+    settextstyle(BOLD_FONT, 0, LIGHTCYAN);
+    outtextxy(x_stanga_sus+150, y_stanga_sus+14*inalt, "Exit");
+
+    rectangle(x_stanga_sus, y_dreapta_jos+14*inalt, x_dreapta_jos+lat, y_dreapta_jos+16*inalt);
+    settextstyle(BOLD_FONT, 0, LIGHTCYAN);
+    outtextxy(x_stanga_sus+100, y_stanga_sus+16*inalt, "Limba: Romana");
+
+    int x,y;
+
+    while (ismouseclick(WM_LBUTTONDOWN) == 0)
+    {
+        x = mousex();
+        y = mousey();
+    }
+
+    if (x > x_stanga_sus && x < x_dreapta_jos+lat && y > y_stanga_sus && y < y_dreapta_jos+inalt)
+        return 1;
+    else if (x > x_stanga_sus && x < x_dreapta_jos+lat && y > y_dreapta_jos+inalt && y < y_dreapta_jos+4*inalt)
+        return 2;
+    else if (x > x_stanga_sus && x < x_dreapta_jos+lat && y > y_dreapta_jos+4*inalt && y < y_dreapta_jos+6*inalt)
+        return 3;
+    else if (x > x_stanga_sus && x < x_dreapta_jos+lat && y > y_dreapta_jos+6*inalt && y < y_dreapta_jos+8*inalt)
+        return 4;
+    else if (x > x_stanga_sus && x < x_dreapta_jos+lat && y > y_dreapta_jos+8*inalt && y < y_dreapta_jos+10*inalt)
+        return 5;
+    else if (x > x_stanga_sus && x < x_dreapta_jos+lat && y > y_dreapta_jos+10*inalt && y < y_dreapta_jos+12*inalt)
+        return 6;
+    else if (x > x_stanga_sus && x < x_dreapta_jos+lat && y > y_dreapta_jos+12*inalt && y < y_dreapta_jos+14*inalt)
+        return 0;
+    else if(x > x_stanga_sus && x < x_dreapta_jos+lat && y > y_dreapta_jos+14*inalt && y < y_dreapta_jos+16*inalt)
+    {
+        limba++;
+        return 7;
+    }
 }
 
 void alegere()
 {
     clearmouseclick(WM_LBUTTONDOWN);
-    switch (navigare())
-    {
+    if(limba%2)
+        switch (navigare_romana())
+        {
 
-    case 0:
-    {
-        exit(0);
-        break;
-    }
+        case 0:
+        {
+            exit(0);
+            break;
+        }
 
-    case 1:
-    {
-        clearviewport();
-        denumire(8,"Derivare formala");
-        navigare();
-        outtextxy(latime_ecran/16,inaltime_ecran/6,"Informatii:");
-        outtextxy(latime_ecran/16,inaltime_ecran/6+40,"1.Programul accepta ca necunoscuta doar litera 'x' mic.");
-        outtextxy(latime_ecran/16,inaltime_ecran/6+65,"2.Programul accepta ca operanzi numere rationale sub forma 'a.b'.");
-        outtextxy(latime_ecran/16,inaltime_ecran/6+90,"3.Operatiile acceptate sunt adunare, scadere, inmultire, impartire, ridicare la putere");
-        outtextxy(latime_ecran/16+textwidth("si"),inaltime_ecran/6+115,"si radical(sub forma ridicarii la putere cu numere rationale ex:4^0.5=2).");
-        outtextxy(latime_ecran/16,inaltime_ecran/6+140,"4.Functiile acceptate sunt: ln, sin, cos, tg, ctg.");
-        alegere();
-        break;
-    }
-
-    case 2:
-    {
-        clearviewport();
-        denumire(8,"Derivare formala");
-        navigare();
-        outtextxy(latime_ecran/16,inaltime_ecran/6,"Preluati formula de la tastatura:");
-        char c=getch();
-        int poz=0;
-        expr[poz]=NULL;
-        notatia_Postfixata.clear();
-        while(c != 13)
+        case 1:
         {
             clearviewport();
             denumire(8,"Derivare formala");
-            navigare();
+            navigare_romana();
+            outtextxy(latime_ecran/16,inaltime_ecran/6,"Informatii:");
+            outtextxy(latime_ecran/16,inaltime_ecran/6+40,"1.Programul accepta ca necunoscuta doar litera 'x' mic.");
+            outtextxy(latime_ecran/16,inaltime_ecran/6+65,"2.Programul accepta ca operanzi numere rationale sub forma 'a.b'.");
+            outtextxy(latime_ecran/16,inaltime_ecran/6+90,"3.Operatiile acceptate sunt adunare, scadere, inmultire, impartire, ridicare la putere");
+            outtextxy(latime_ecran/16+textwidth("si"),inaltime_ecran/6+115,"si radical(sub forma ridicarii la putere cu numere rationale ex:4^0.5=2).");
+            outtextxy(latime_ecran/16,inaltime_ecran/6+140,"4.Functiile acceptate sunt: ln, sin, cos, tg, ctg.");
+            alegere();
+            break;
+        }
+
+        case 2:
+        {
+            clearviewport();
+            denumire(8,"Derivare formala");
+            navigare_romana();
             outtextxy(latime_ecran/16,inaltime_ecran/6,"Preluati formula de la tastatura:");
-            if(c == 8)
-                if(poz > 0)
+            char c=getch();
+            int poz=0;
+            expr[poz]=NULL;
+            notatia_Postfixata.clear();
+            while(c != 13)
+            {
+                clearviewport();
+                denumire(8,"Derivare formala");
+                navigare_romana();
+                outtextxy(latime_ecran/16,inaltime_ecran/6,"Preluati formula de la tastatura:");
+                if(c == 8)
+                    if(poz > 0)
+                    {
+                        poz--;
+                        expr[poz]=NULL;
+                    }
+                    else;
+                else if(poz < 60)
                 {
-                    poz--;
+                    expr[poz]=c;
+                    poz++;
                     expr[poz]=NULL;
                 }
-                else;
-            else if(poz < 60)
-            {
-                expr[poz]=c;
-                poz++;
-                expr[poz]=NULL;
+                outtextxy(latime_ecran/16,inaltime_ecran/5,expr);
+                c=getch();
             }
-            outtextxy(latime_ecran/16,inaltime_ecran/5,expr);
-            c=getch();
-        }
-        if(expr[0])
-        {
-            ecuatie_de_derivat=expr;
-            notatia_Postfixata=Postfixare(ecuatie_de_derivat);
-            arbore_expresie=construire(notatia_Postfixata);
-        }
-        alegere();
-        break;
-    }
-
-    case 3:
-    {
-        clearviewport();
-        denumire(8,"Derivare formala");
-        navigare();
-        outtextxy(latime_ecran/16,inaltime_ecran/6,"Formula postfixata:");
-        if(notatia_Postfixata[0])
-        {
-            int i;
-            char v[notatia_Postfixata.size()];
-            for(i=0; i<notatia_Postfixata.size(); i++)
-                v[i]=notatia_Postfixata[i];
-            v[i]=NULL;
-            outtextxy(latime_ecran/16,inaltime_ecran/5,v);
-        }
-        else
-            outtextxy(latime_ecran/16,inaltime_ecran/5,"Ai uitat sa introduci expresia!");
-        alegere();
-        break;
-    }
-
-    case 4:
-    {
-        arbore_expresie=simplifica(arbore_expresie);
-        if(arbore_expresie)
-        {
-            int fereastra_arbore=initwindow(latime_ecran, inaltime_ecran, "Arbore expresie");
-            setcurrentwindow(fereastra_arbore);
-            settextstyle(BOLD_FONT,0,2);
-            setcolor(LIGHTCYAN);
-            int latime_text=textwidth("Iesire");
-            int inaltime_text=textheight("Iesire");
-            outtextxy((latime_ecran/2-latime_text/3),(inaltime_ecran-inaltime_text)/100,"Iesire");
-            deseneaza_arbore(arbore_expresie,1,0,latime_ecran/latime_arbore(arbore_expresie),inaltime_ecran/inaltime_arbore(arbore_expresie));
-            clearmouseclick(WM_LBUTTONDOWN);
-            int x=0,y=0;
-            while ((x == 0 || y == 0))
+            if(expr[0])
             {
-                x=mousex();
-                y=mousey();
-                if(x > latime_ecran/2-latime_text/3 && x < latime_ecran/2-latime_text/3+latime_text && y > (inaltime_ecran-inaltime_text)/100 && y < (inaltime_ecran-inaltime_text)/100+inaltime_text && ismouseclick(WM_LBUTTONDOWN))
-                    closegraph(CURRENT_WINDOW);
-                else
+                ecuatie_de_derivat=expr;
+                notatia_Postfixata=Postfixare(ecuatie_de_derivat);
+                arbore_expresie=construire(notatia_Postfixata);
+            }
+            alegere();
+            break;
+        }
+
+        case 3:
+        {
+            clearviewport();
+            denumire(8,"Derivare formala");
+            navigare_romana();
+            outtextxy(latime_ecran/16,inaltime_ecran/6,"Formula postfixata:");
+            if(notatia_Postfixata[0])
+            {
+                int i;
+                char v[notatia_Postfixata.size()];
+                for(i=0; i<notatia_Postfixata.size(); i++)
+                    v[i]=notatia_Postfixata[i];
+                v[i]=NULL;
+                outtextxy(latime_ecran/16,inaltime_ecran/5,v);
+            }
+            else
+                outtextxy(latime_ecran/16,inaltime_ecran/5,"Ai uitat sa introduci expresia!");
+            alegere();
+            break;
+        }
+
+        case 4:
+        {
+            arbore_expresie=simplifica(simplifica(arbore_expresie));
+            if(arbore_expresie)
+            {
+                int fereastra_arbore=initwindow(latime_ecran, inaltime_ecran, "Arbore expresie");
+                setcurrentwindow(fereastra_arbore);
+                settextstyle(BOLD_FONT,0,2);
+                setcolor(LIGHTCYAN);
+                int latime_text=textwidth("Iesire");
+                int inaltime_text=textheight("Iesire");
+                outtextxy((latime_ecran/2-latime_text/3),(inaltime_ecran-inaltime_text)/100,"Iesire");
+                deseneaza_arbore(arbore_expresie,1,0,latime_ecran/latime_arbore(arbore_expresie),inaltime_ecran/inaltime_arbore(arbore_expresie));
+                clearmouseclick(WM_LBUTTONDOWN);
+                int x=0,y=0;
+                while ((x == 0 || y == 0))
                 {
-                    x=0;
-                    y=0;
-                    clearmouseclick(WM_LBUTTONDOWN);
+                    x=mousex();
+                    y=mousey();
+                    if(x > latime_ecran/2-latime_text/3 && x < latime_ecran/2-latime_text/3+latime_text && y > (inaltime_ecran-inaltime_text)/100 && y < (inaltime_ecran-inaltime_text)/100+inaltime_text && ismouseclick(WM_LBUTTONDOWN))
+                        closegraph(CURRENT_WINDOW);
+                    else
+                    {
+                        x=0;
+                        y=0;
+                        clearmouseclick(WM_LBUTTONDOWN);
+                    }
                 }
+            setcurrentwindow(0);
             }
+            else
+                outtextxy(latime_ecran/16,inaltime_ecran/5,"Ai uitat sa introduci expresia!");
+            alegere();
+            break;
         }
-        setcurrentwindow(0);
-        alegere();
-        break;
-    }
 
-    case 5:
-    {
-        clearviewport();
-        denumire(8,"Derivare formala");
-        navigare();
-        outtextxy(latime_ecran/16,inaltime_ecran/6,"Derivata:");
-
-        arbore_expresie=simplifica(arbore_expresie);
-        arbore_derivat=derivare(arbore_expresie);
-        arbore_derivat=simplifica(simplifica(arbore_derivat));
-        notatia_inordine=inordine(arbore_derivat);
-
-        if(notatia_inordine[0])
+        case 5:
         {
-            int i;
-            char v[notatia_inordine.size()];
-            for(i=0; i<notatia_inordine.size(); i++)
-                v[i]=notatia_inordine[i];
-            v[i]=NULL;
-            outtextxy(latime_ecran/16,inaltime_ecran/5,v);
+            clearviewport();
+            denumire(8,"Derivare formala");
+            navigare_romana();
+            outtextxy(latime_ecran/16,inaltime_ecran/6,"Derivata:");
+
+            arbore_expresie=simplifica(arbore_expresie);
+            arbore_derivat=derivare(arbore_expresie);
+            arbore_derivat=simplifica(simplifica(arbore_derivat));
+            notatia_inordine=inordine(arbore_derivat);
+
+            if(notatia_inordine[0])
+            {
+                int i;
+                char v[notatia_inordine.size()];
+                for(i=0; i<notatia_inordine.size(); i++)
+                    v[i]=notatia_inordine[i];
+                v[i]=NULL;
+                outtextxy(latime_ecran/16,inaltime_ecran/5,v);
+            }
+            else
+                outtextxy(latime_ecran/16,inaltime_ecran/5,"Ai uitat sa introduci expresia!");
+
+            alegere();
+            break;
         }
-        else
-            outtextxy(latime_ecran/16,inaltime_ecran/5,"Ai uitat sa introduci expresia!");
 
-        alegere();
-        break;
-    }
-
-    case 6:
-    {
-        clearviewport();
-        denumire(8,"Derivare formala");
-        navigare();
-        outtextxy(latime_ecran/16,inaltime_ecran/6,"Derivata de oridnul 2:");
-
-        arbore_derivat_2=derivare(arbore_derivat);
-        arbore_derivat_2=simplifica(simplifica(arbore_derivat_2));
-        notatia_inordine_2=inordine(arbore_derivat_2);
-
-        if(notatia_inordine_2[0])
+        case 6:
         {
-            int i;
-            char v[notatia_inordine_2.size()];
-            for(i=0; i<notatia_inordine_2.size(); i++)
-                v[i]=notatia_inordine_2[i];
-            v[i]=NULL;
-            outtextxy(latime_ecran/16,inaltime_ecran/5,v);
+            clearviewport();
+            denumire(8,"Derivare formala");
+            navigare_romana();
+            outtextxy(latime_ecran/16,inaltime_ecran/6,"Derivata de ordinul 2:");
+
+            arbore_expresie=simplifica(arbore_expresie);
+            arbore_derivat=derivare(arbore_expresie);
+
+            arbore_derivat_2=derivare(arbore_derivat);
+            arbore_derivat_2=simplifica(simplifica(arbore_derivat_2));
+            notatia_inordine_2=inordine(arbore_derivat_2);
+
+                if(notatia_inordine_2[0])
+            {
+                int i;
+                char v[notatia_inordine_2.size()];
+                for(i=0; i<notatia_inordine_2.size(); i++)
+                    v[i]=notatia_inordine_2[i];
+                v[i]=NULL;
+                outtextxy(latime_ecran/16,inaltime_ecran/5,v);
+            }
+            else
+                outtextxy(latime_ecran/16,inaltime_ecran/5,"Ai uitat sa introduci expresia!");
+            alegere();
+            break;
         }
-        else
-            outtextxy(latime_ecran/16,inaltime_ecran/5,"Ai uitat sa introduci expresia!");
-        alegere();
-        break;
-    }
 
-    default:
-    {
-        alegere();
-        break;
-    }
+        case 7:
+        {
+            clearviewport();
+            denumire(8,"Formal derivation");
+            alegere();
+            break;
+        }
 
-    }
+        default:
+        {
+            alegere();
+            break;
+        }
+        }
+    else
+        switch (navigare_engleza())
+        {
+
+        case 0:
+        {
+            exit(0);
+            break;
+        }
+
+        case 1:
+        {
+            clearviewport();
+            denumire(8,"Formal derivation");
+            navigare_engleza();
+            outtextxy(latime_ecran/16,inaltime_ecran/6,"Informations:");
+            outtextxy(latime_ecran/16,inaltime_ecran/6+40,"1.The program accepts only the small letter 'x' as operand.");
+            outtextxy(latime_ecran/16,inaltime_ecran/6+65,"2.The program accepts as operands rational numbers in the form 'a.b'.");
+            outtextxy(latime_ecran/16,inaltime_ecran/6+90,"3.Accepted operations are addition, subtraction, multiplication, division, exponent");
+            outtextxy(latime_ecran/16+textwidth("si"),inaltime_ecran/6+115,"and radical (in the form of exponentiation with rational numbers, e.g. 4^0.5=2).");
+            outtextxy(latime_ecran/16,inaltime_ecran/6+140,"4.The supported functions are: ln, sin, cos, tg, ctg.");
+            alegere();
+            break;
+        }
+
+        case 2:
+        {
+            clearviewport();
+            denumire(8,"Formal derivation");
+            navigare_engleza();
+            outtextxy(latime_ecran/16,inaltime_ecran/6,"Read the formula from the keyboard:");
+            char c=getch();
+            int poz=0;
+            expr[poz]=NULL;
+            notatia_Postfixata.clear();
+            while(c != 13)
+            {
+                clearviewport();
+                denumire(8,"Formal derivation");
+                navigare_engleza();
+                outtextxy(latime_ecran/16,inaltime_ecran/6,"Read the formula from the keyboard:");
+                if(c == 8)
+                    if(poz > 0)
+                    {
+                        poz--;
+                        expr[poz]=NULL;
+                    }
+                    else;
+                else if(poz < 60)
+                {
+                    expr[poz]=c;
+                    poz++;
+                    expr[poz]=NULL;
+                }
+                outtextxy(latime_ecran/16,inaltime_ecran/5,expr);
+                c=getch();
+            }
+            if(expr[0])
+            {
+                ecuatie_de_derivat=expr;
+                notatia_Postfixata=Postfixare(ecuatie_de_derivat);
+                arbore_expresie=construire(notatia_Postfixata);
+            }
+            alegere();
+            break;
+        }
+
+        case 3:
+        {
+            clearviewport();
+            denumire(8,"Formal derivation");
+            navigare_engleza();
+            outtextxy(latime_ecran/16,inaltime_ecran/6,"Postfixed notation:");
+            if(notatia_Postfixata[0])
+            {
+                int i;
+                char v[notatia_Postfixata.size()];
+                for(i=0; i<notatia_Postfixata.size(); i++)
+                    v[i]=notatia_Postfixata[i];
+                v[i]=NULL;
+                outtextxy(latime_ecran/16,inaltime_ecran/5,v);
+            }
+            else
+                outtextxy(latime_ecran/16,inaltime_ecran/5,"You forgot to enter the expression!");
+            alegere();
+            break;
+        }
+
+        case 4:
+        {
+            arbore_expresie=simplifica(simplifica(arbore_expresie));
+            if(arbore_expresie)
+            {
+                int fereastra_arbore=initwindow(latime_ecran, inaltime_ecran, "Expression tree");
+                setcurrentwindow(fereastra_arbore);
+                settextstyle(BOLD_FONT,0,2);
+                setcolor(LIGHTCYAN);
+                int latime_text=textwidth("Exit");
+                int inaltime_text=textheight("Exit");
+                outtextxy((latime_ecran/2-latime_text/3),(inaltime_ecran-inaltime_text)/100,"Exit");
+                deseneaza_arbore(arbore_expresie,1,0,latime_ecran/latime_arbore(arbore_expresie),inaltime_ecran/inaltime_arbore(arbore_expresie));
+                clearmouseclick(WM_LBUTTONDOWN);
+                int x=0,y=0;
+                while ((x == 0 || y == 0))
+                {
+                    x=mousex();
+                    y=mousey();
+                    if(x > latime_ecran/2-latime_text/3 && x < latime_ecran/2-latime_text/3+latime_text && y > (inaltime_ecran-inaltime_text)/100 && y < (inaltime_ecran-inaltime_text)/100+inaltime_text && ismouseclick(WM_LBUTTONDOWN))
+                        closegraph(CURRENT_WINDOW);
+                    else
+                    {
+                        x=0;
+                        y=0;
+                        clearmouseclick(WM_LBUTTONDOWN);
+                    }
+                }
+            setcurrentwindow(0);
+            }
+            else
+                outtextxy(latime_ecran/16,inaltime_ecran/5,"You forgot to enter the expression!");
+            alegere();
+            break;
+        }
+
+        case 5:
+        {
+            clearviewport();
+            denumire(8,"Formal derivation");
+            navigare_engleza();
+            outtextxy(latime_ecran/16,inaltime_ecran/6,"Derivative:");
+
+            arbore_expresie=simplifica(arbore_expresie);
+            arbore_derivat=derivare(arbore_expresie);
+            arbore_derivat=simplifica(simplifica(arbore_derivat));
+            notatia_inordine=inordine(arbore_derivat);
+
+            if(notatia_inordine[0])
+            {
+                int i;
+                char v[notatia_inordine.size()];
+                for(i=0; i<notatia_inordine.size(); i++)
+                    v[i]=notatia_inordine[i];
+                v[i]=NULL;
+                outtextxy(latime_ecran/16,inaltime_ecran/5,v);
+            }
+            else
+                outtextxy(latime_ecran/16,inaltime_ecran/5,"You forgot to enter the expression!");
+
+            alegere();
+            break;
+        }
+
+        case 6:
+        {
+            clearviewport();
+            denumire(8,"Formal derivation");
+            navigare_engleza();
+            outtextxy(latime_ecran/16,inaltime_ecran/6,"2nd order derivative:");
+
+            arbore_expresie=simplifica(arbore_expresie);
+            arbore_derivat=derivare(arbore_expresie);
+
+            arbore_derivat_2=derivare(arbore_derivat);
+            arbore_derivat_2=simplifica(simplifica(arbore_derivat_2));
+            notatia_inordine_2=inordine(arbore_derivat_2);
+
+            if(notatia_inordine_2[0])
+            {
+                int i;
+                char v[notatia_inordine_2.size()];
+                for(i=0; i<notatia_inordine_2.size(); i++)
+                    v[i]=notatia_inordine_2[i];
+                v[i]=NULL;
+                outtextxy(latime_ecran/16,inaltime_ecran/5,v);
+            }
+            else
+                outtextxy(latime_ecran/16,inaltime_ecran/5,"You forgot to enter the expression!");
+            alegere();
+            break;
+        }
+
+        case 7:
+        {
+            clearviewport();
+            denumire(8,"Derivare formala");
+            alegere();
+            break;
+        }
+
+        default:
+        {
+            alegere();
+            break;
+        }
+        }
 }
-
 int main()
 {
     initwindow(latime_ecran, inaltime_ecran, "Derivare formala");
